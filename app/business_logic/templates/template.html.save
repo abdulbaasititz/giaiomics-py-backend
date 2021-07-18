@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Report</title>
+    <style>
+            @page {
+                size: a4 portrait;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            th1, td1 {
+                text-align: center;
+                padding: 4px;
+                vertical-align: center;
+            }
+
+            .grid-header {
+                padding: 4px;
+                background-color: #F89646;
+                color: white;
+            }
+
+            td.snp-rsid {
+                background-color: #FCD5B4;
+            }
+
+            td.path {
+                background-color: #FDE9DB;
+            }
+
+            td.risk-allele {
+                background-color: #FDE9DB;
+            }
+
+            th, td {
+                padding: 4px;
+                text-align: center;
+            }
+            
+            table {
+                border-collapse: collapse;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+
+            .container {
+                height: 1000px;
+                position: relative;
+            }
+
+
+            caption { display: table-caption-group; }
+
+            .mt-2 {
+                margin-top: 20px;
+            }
+            .mt-3 {
+                margin-top: 30px;
+            }
+
+            .report-heading-top {
+               position : relative;
+               top : 50%;
+               text-align: center;
+            }
+            .report-heading {
+                background-color: #4F81BD;
+                color: white;
+                font-size: 70px;
+                font-weight: bold;
+                border-style: inset;
+            }
+
+            .report-category-head {
+                border: none;
+                margin-bottom: 20px;
+                width: 100%;
+                float: right;
+                background-color: #4F81BD;
+            }
+            .report-category-head1 {
+                border: none;
+                margin-bottom: 20px;
+                width: 100%;
+                float: right;
+            }
+            .report-category-align{
+                font-size: 30px;
+                float: right;
+                background-color: #4F81BD;
+            }
+            .waterMarkSet{
+                position:relative;
+            }
+    </style>
+</head>
+<body>
+<br><br>
+    <div style="text-align: center;">
+            <h1>GUIDELINE</h1>
+    </div>
+    <br>
+    <div>
+        <span>
+            <p style="line-height: 1.8;font-size:18px;">
+            
+            <p></p>
+            <p style="line-height: 1.8; font-size:15px;">
+                The significance of your phenotypes should be assessed by reviewing related genome wide studies for
+                context and in consultation with a qualified health practitioner or nutrigenetics specialist.
+            </p>
+            <table style="margin:auto; vertical-align: middle;border-collapse: collapse;line-height: 1.5;font-size:15px;">
+                <col width="150">
+                <col width="700">
+                <tr style="border: 1px solid black;">
+                    <td style="background-color:green"></td>
+                    <td>
+                        By default, green means that there are no minor alleles or Hemizygous and
+                        therefore that there are no risk alleles. Sometimes, however a minor allele
+                        can be protective and in these cases it will also be marked as green.
+                    </td>
+                </tr>
+                <tr style="border: 1px solid black;">
+                    <td style="background-color:yellow"></td>
+                    <td>
+                        By default, yellow means that there is one minor allele. Sometimes, two
+                        major alleles (common alleles) are yellow if the major allele is the risk
+                        allele or Heterozygous.
+                    </td>
+                </tr>
+                <tr style="border: 1px solid black;">
+                    <td style="background-color:red"></td>
+                    <td>
+                        Red means that you need to pay attention to this SNP. By default, Red
+                        means that there are two minor (less common) alleles and therefore risk
+                        alleles or Homozygous. Sometimes, we change a color to Red if there is
+                        only one minor allele and one minor allele is associated with negative
+                        health outcomes.
+                    </td>
+                </tr>
+            </table>
+        </span>
+    </div>
+    <div class="page-break"></div>
+
+    {% for geneReport in reportingData %}
+        <div class="container">
+            <div class="report-heading-top">
+                <div><img class="waterMarkSet" src="draftWm.png"></div>
+                <div class="report-heading"> {{ geneReport.category }} </div>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <table repeat="1" class="mt-3">
+
+            <thead >
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th style="text-align:right;" colspan="3" >
+                        <p> <span style="border:1px;background-color:#4F81BD;padding: 10px;color:white; ">{{ geneReport.category }}</span></p>
+                    </th>
+                </tr>
+                <tr class="grid-header" style="border: 1px solid black;">
+                    <th style="border: 1px solid black;">SNP RSID</th>
+                    <th style="border: 1px solid black;">GENE & VARIANT</th>
+                    <th style="border: 1px solid black;">PATHWAY</th>
+                    <th style="border: 1px solid black;">VARIANT MEANING</th>
+                    <th style="border: 1px solid black;">RISK ALLELE</th>
+                    <th style="border: 1px solid black;">GENOTYPE</th>
+                </tr>
+            </thead>
+
+            <tbody >
+                {% for gene in geneReport.value %}
+                <tr style="border: 1px solid black;">
+                    <td class="snp-rsid" style="border: 1px solid black;font-weight: bold;"> {{ gene.snpRsid }} </td>
+                    <td style="border: 1px solid black;"> {{ gene.geneAndVarient }} </td>
+                    <td class="path" style="border: 1px solid black;font-weight: bold;"> {{ gene.pathway }} </td>
+                    <td style="border: 1px solid black;"> {{ gene.variantMeaning }} </td>
+                    <td class="risk-allele" style="border: 1px solid black;font-weight: bold;"> {{ gene.riskAllele }} </td>
+                    {% if gene.genoType == "--" %}
+                        <td style="background-color:green;font-weight: bold;"> {{ gene.genoType }} </td>
+                    {% elif gene.genoType == gene.riskAllele %}
+                        <td style="background-color:red;font-weight: bold;"> {{ gene.genoType }} </td>
+                    {% elif gene.genoType[0] != gene.riskAllele[0] and gene.genoType[1] != gene.riskAllele[1] %}
+                        <td style="background-color:green;font-weight: bold;"> {{ gene.genoType }} </td>
+                    {% elif gene.genoType[0] == gene.riskAllele[0] or gene.genoType[1] == gene.riskAllele[1] %}
+                        <td style="background-color:yellow;font-weight: bold;"> {{ gene.genoType }} </td>
+                    {% else %}
+                        <td style="background-color:blue;font-weight: bold;"> {{ gene.genoType }} </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="page-break"></div>
+
+    {% endfor %}
+
+    <div>
+        <br><br>
+        <h1>2019 AGENESinfo Omics</h1>
+        <p style="line-height:1.8;font-size:18px;">
+            This report is intended to translate your results into an easier to understand form. It is not intended to
+            diagnose or treat. For diagnosis or treatment, please present this to your doctor Additionally, genetic
+            mutations are flags that something could be wrong and not a guarantee that you are having all or any of the
+            associated issues. Other factors like environment, ethnic background, diet, age, personal history, etc all
+            have a factor in whether a mutation starts to present itself or not and when. Copyright 2019 AGENESinfo
+            Omics Pvt.Ltd.
+        </p>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+from jinja2 import Template
+from io import StringIO
+import pdfkit
+from collections import defaultdict
+import json
+import os
+
+class PdfReportGenerator:
+
+    def __init__(self):
+        print('Constructor: PdfReportGenerator')
+
+    def convertHtmlToPdf(self, groupedPatientReportData):
+        companyName = 'GIAIomics'
+        os.chdir('')
+	template = open("/home/ubuntu/templates/template.html")
+
+        patientData = json.loads(groupedPatientReportData)
+
+        
+        # Jinja instance
+        jinjaTemplater = Template(template.read())
+
+        jinjaFinalHtml = jinjaTemplater.render(companyName = companyName, reportingData = patientData)
+
+        # Flask => To get the HTML string
+        # flaskFinalHtml = render_template('template.html', companyName = companyName, reportingData = reportingData)
+
+        # xhtml2pdf => Html string to Pdf
+        # resultFile = open("xhtml2dpf.pdf", "w+b")
+        # pisaStatus = pisa.CreatePDF(jinjaFinalHtml, dest=resultFile)   
+        # resultFile.close() 
+
+        # pdfkit => Html string to Pdf
+        # pdf = pdfkit.from_string(flaskFinalHtml, 'pdfkit.pdf')
+        pdf = pdfkit.from_string(jinjaFinalHtml, False, {'--header-html': '/home/ubuntu/templates/header.html', '--footer-html': '/home/ubuntu/templates/footer.html'})
+
+        # pdf = pdfkit.from_string(jinjaFinalHtml, False)
+
+        return pdf

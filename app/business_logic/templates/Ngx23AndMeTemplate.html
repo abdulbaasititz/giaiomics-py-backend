@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Report</title>
+    <style>
+            @page {
+                size: a4 portrait;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            th1, td1 {
+                text-align: center;
+                padding: 4px;
+                vertical-align: center;
+            }
+
+            .grid-header {
+                padding: 4px;
+                background-color: #F89646;
+                color: white;
+            }
+
+            td.snp-rsid {
+                background-color: #FCD5B4;
+            }
+
+            td.path {
+                background-color: #FDE9DB;
+            }
+
+            td.risk-allele {
+                background-color: #FDE9DB;
+            }
+
+            th, td {
+                padding: 4px;
+                text-align: center;
+            }
+            
+            table {
+                border-collapse: collapse;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+
+            .container {
+                height: 1000px;
+                position: relative;
+            }
+
+            caption { display: table-caption-group; }
+
+            .mt-2 {
+                margin-top: 20px;
+            }
+            .mt-3 {
+                margin-top: 30px;
+            }
+
+            .report-heading-top {
+               position : relative;
+               top : 50%;
+               text-align: center;
+            }
+            .report-heading {
+                font-size: 70px;
+                font-weight: bold;
+                border-style: inset;border:1px;background-color:#4F81BD;padding: 15px;color:white;
+            }
+
+            .report-category-head {
+                border: none;
+                margin-bottom: 20px;
+                width: 100%;
+                float: right;
+                background-color: #4F81BD;
+            }
+            .report-category-head1 {
+                border: none;
+                margin-bottom: 20px;
+                width: 100%;
+                float: right;
+            }
+            .report-category-align{
+                font-size: 30px;
+                float: right;
+                background-color: #4F81BD;
+            }
+            .waterMarkSet{
+                position:relative;
+            }
+            .fulljustify {
+              text-align: justify;
+            }
+            .full1justify:after {
+              content: "";
+              display: inline-block;
+              width: 100%;
+            }
+            .borders{border-style: solid;border-width: 5px;border-radius: 65px;border-color:#36F;padding:30px;}
+            .borders1{position:relative; z-index:10; padding:30px; background:#36F; border:5px solid #390; border-radius: 65px; }
+            .borders1:before{content:""; display:block; position:absolute; z-index:-1; top:2px; left:2px; right:2px;border-radius: 65px;
+                bottom:2px; border:2px solid #36F}
+            .category-header-set {text-align: center;color:#4F81BD;}
+            .category-header-span-set {border-bottom: 3px solid #4F81BD;}
+    </style>
+</head>
+<body style="font-family:'Times New Roman';">
+    <br><br>
+    <div style="text-align: center;">
+            <h1>GUIDELINE</h1>
+    </div>
+    <br>
+    <div>
+        <span>
+            <p style="line-height: 1.8;font-size:16px;text-align: justify;">
+                A gene variant report is a graphical representation of genetic raw data,
+                displayed as a color coded chart.Phenotypes are determined based on the presence
+                or absence of variant alleles in your genotype. Alleles are considered variant if they are the minor allele i.e they occur with less frequency (GMAF) in the default global population.
+                Having "no variant" alleles (green) is not necessarily "normal" or protective, and having a homozygous phenotype (red) is not always "abnormal". What is a normal or abnormal phenotype
+                should NOT be determined solely based on this variant report. Please refer to the table below to explore this issue further.
+            </p>
+            <p></p>
+            <p style="line-height: 1.8; font-size:16px;text-align: justify;">
+                The significance of your phenotypes should be assessed by reviewing related genome wide studies for context and in consultation with a qualified health practitioner or nutrigenetics specialist.
+            </p>
+            <table style="margin:auto; vertical-align: middle;border-collapse: collapse;line-height: 1.5;font-size:16px;">
+                <col width="150">
+                <col width="700">
+                <tr style="border: 1px solid black;">
+                    <td style="background-color:green"></td>
+                    <td>
+                        By default, green means that there are no minor alleles or Hemizygous and therefore that there are no risk alleles. Sometimes, however a minor allele can be protective
+                        and in these cases it will also be marked as green.
+                    </td>
+                </tr>
+                <tr style="border: 1px solid black;">
+                    <td style="background-color:yellow"></td>
+                    <td>
+                        By default, yellow means that there is one minor allele. Sometimes, two major alleles (common alleles) are yellow if the major allele is the risk allele or Heterozygous.
+                    </td>
+                </tr>
+                <tr style="border: 1px solid black;">
+                    <td style="background-color:red"></td>
+                    <td>
+                        Red means that you need to pay attention to this SNP. By default, Red means that there are two minor (less common) alleles and therefore risk alleles or Homozygous. Sometimes,
+                        we change a color to Red if there is only one minor allele and one minor allele is associated with negative health outcomes.
+                    </td>
+                </tr>
+            </table>
+        </span>
+    </div>
+    <div class="page-break"></div>
+    {% for geneReport in reportingData %}
+        <div class="container">
+            <div class="report-heading-top">
+                <!--div><img class="waterMarkSet" src="draftWm.png"></div>-->
+                <div >
+                    <p> <span class="report-heading" style="border:1px;background-color:#4F81BD;padding: 10px;color:white; ">{{ geneReport.category }}</span></p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div>
+            {% if geneReport.category == "Chemoprotection / Detox" %}
+                <div class="page-break"></div>
+                <div class="whole-page">
+                    <br><br>
+                    <div class = "sub-part-1 borders">
+                        <h1 class="category-header-set"><span class="category-header-span-set"><i>Liver Detox Phase I & II</i></span></h1>
+                        <p style="line-height:1.8;font-size:16px;text-align: justify;">
+                            A lot of toxins – whether eaten, breathed, or created in our bodies – are broken down by the Cytochrome P450 family of enzymes in what is known as phase I of detoxification.
+                            Phase I break apart big toxins and makes them into polar molecules. Most of this takes place in the liver; Phase II detoxification involves taking the metabolites of phase I and
+                            changing them so that they can be excreted. Phase II binds with the metabolites from Phase I and makes them water-soluble so that they can be excreted. Sometimes the metabolites
+                            of phase I are carcinogenic or reactive, so having phase II detox in sync is very important. Understanding your own genes for detoxification can help you prioritize which toxicants
+                            are the most harmful to you and which drugs to avoid.
+                        </p>
+                    </div>
+                    <br><br>
+                    <div class = "sub-part-2 borders ">
+                        <h1 class="category-header-set"><span class="category-header-span-set"><i>Yeast/ Alcohol metabolism</i></span></h1>
+                        <p style="line-height:1.8;font-size:16px;text-align: justify;">
+                            The alcohol dehydrogenases comprise a group of several isozymes that catalyse the oxidation of primary and secondary alcohols to aldehydes and ketones,respectively,Alcohol dehydrogenases
+                            (ADH) are a group of dehydrogenase enzymes that occur In humans and many other animals and facilitate the interconversion between alcohols and aldehydes or ketones with the reduction of
+                            nicotinamide adenine dinucleotide (NAD + ) to NADH. Thus ADH serve to break down alcohols that otherwise are toxic, and they also participate in generation of useful aldehyde, ketone, or
+                            alcohol groups during biosynthesis of various metabolites. In yeast, plants, and many bacteria, some alcohol dehydrogenases catalyze the opposite reaction as part of fermentation to
+                            ensure a constant supply of NAD + .
+                        </p>
+                    </div>
+                </div>
+                <div class="page-break"></div>
+            {% elif geneReport.category == "Health Report" %}
+                <div class="page-break"></div>
+                <div class="whole-page">
+                    <br><br>
+                    <div class = "sub-part-1 borders ">
+                        <h1 class="category-header-set"><span class="category-header-span-set"><i>Celiac Disease/Gluten Intolerance</i></span></h1>
+                        <p style="line-height:1.8;font-size:16px;text-align: justify;">
+                            Celiac disease, sometimes called celiac sprue or gluten-sensitive enteropathy, is an immune reaction to
+                            eating gluten, a protein found in wheat, barley and rye. If you have celiac disease, eating gluten triggers an
+                            immune response in your small intestine. Over time, this reaction damages your small intestine's lining and
+                            prevents it from absorbing some nutrients (malabsorption). The intestinal damage often causes diarrhea,
+                            fatigue, weight loss, bloating and anemia, and can lead to serious complications.
+                        </p>
+                    </div><br><br>
+                    <div class = "sub-part-2 borders ">
+                        <h1 class="category-header-set"><span class="category-header-span-set"><i>Clotting Factors</i></span></h1>
+                        <p style="line-height:1.8;font-size:16px;text-align: justify;">
+                            Coagulation, also known as clotting, is the process by which blood changes from a liquid to a gel, forming
+                            a blood clot. It potentially results in hemostasis, the cessation of blood loss from a damaged vessel,
+                            followed by repair. The mechanism of coagulation involves activation, adhesion and aggregation
+                            of platelets, as well as deposition and maturation of fibrin.
+                        </p>
+                    </div>
+                </div>
+                <div class="page-break"></div>
+            {% elif geneReport.category == "Immune Factors & Inflamation" %}
+                <div class="page-break"></div>
+                <div class="whole-page">
+                    <br><br>
+                    <div class = "sub-part-1 borders ">
+                        <h1 class="category-header-set"><span class="category-header-span-set"><i>IgG, IgE and IgA</i></span></h1>
+                        <p style="line-height:1.8;font-size:16px;text-align: justify;">
+                            Immunoglobulin’s, also known as antibodies, comprise a family of proteins that occur in five major forms,
+                            also termed classes or isotopes – IgM, IgD, IgG, IgE and IgA. Immunoglobulins are produced by
+                            vertebrate animals as part of the normal immune response to microbial, e.g., bacterial or viral, infection.
+                        </p>
+                    </div>
+                </div>
+                <div class="page-break"></div>
+            {% elif geneReport.category == "Methylation" %}
+                <div class="page-break"></div>
+                <div class="whole-page">
+                    <br><br>
+                    <div class = "sub-part-1 borders " >
+                        <h1 class="category-header-set"><span class="category-header-span-set"><i>Methylation & methionine/homocysteine pathways</i></span></h1>
+                        <p style="line-height:1.8;font-size:16px;text-align: justify;">
+                            Homocysteine is a naturally occurring amino acid produced as part of the body’s methylation process. The
+                            level of homocysteine in the plasma is increasingly being recognised as a risk factor for disease and seen as
+                            a predictor of potential health problems such as cardiovascular disease and Alzheimer’s. The complex
+                            metabolism of homocysteine within the body is highly dependent on vitamin derived cofactors, and
+                            deficiencies in vitamin B12, folic acid and vitamin B6 are associated with raised homocysteine levels.
+                            Other factors thought to raise levels are poor diet, poor lifestyle - especially smoking and high coffee and
+                            alcohol intake, some prescription drugs (such as proton pump inhibitors), diabetes, rheumatoid arthritis and
+                            poor thyroid function. Homocysteine levels can, in many cases, be normalised through diet and vitamin
+                            supplementation. The most important nutrients that help lower homocysteine levels are folate, the vitamins
+                            B12, B6 and B2, zinc and trimethylglycine (TMG).
+                        </p>
+                    </div>
+                </div>
+                <div class="page-break"></div>
+            {% elif geneReport.category == "Mitochondrial Function" %}
+                <div class="page-break"></div>
+                <div class="whole-page">
+                    <br><br>
+                    <div class = "sub-part-1 borders ">
+                        <h1 class="category-header-set"><span class="category-header-span-set"><i>Mitochondrial Function</i></span></h1>
+                        <p style="line-height:1.8;font-size:16px;text-align: justify;">
+                            Mitochondrial DNA contains 37 genes, all of which are essential for normal mitochondrial function.
+                            Thirteen of these genes provide instructions for making enzymes involved in oxidative phosphorylation.
+                            Oxidative phosphorylation is a process that uses oxygen and simple sugars to create adenosine triphosphate
+                            (ATP), the cell's main energy source. The remaining genes provide instructions for making molecules
+                            called transfer RNA (tRNA) and ribosomal RNA (rRNA), which are chemical cousins of DNA. These
+                            types of RNA help assemble protein building blocks (amino acids) into functioning proteins. The following
+                            conditions are associated with changes in the structure of mitochondrial DNA. Age-related hearing loss,
+                            Cancers, Cyclic vomiting syndrome, Cytochrome c oxidase deficiency, Kearns-Sayre syndrome, Leber
+                            hereditary optic neuropathy, Leigh syndrome, Maternally inherited diabetes and deafness, Mitochondrial
+                            complex III deficiency, Mitochondrial encephalomyopathy, lactic acidosis, and stroke-like episodes,
+                            Myoclonic epilepsy with ragged-red fibers, Neuropathy, ataxia, and retinitis pigmentosa, Nonsyndromic
+                            hearing loss, Pearson marrow-pancreas syndrome, Progressive external ophthalmoplegia.
+                        </p>
+                    </div>
+                </div>
+                <div class="page-break"></div>
+            {% elif geneReport.category == "Neurotransmitters" %}
+                <div class="page-break"></div>
+                <div class="whole-page"><br><br>
+                    <div class = "sub-part-1 borders " >
+                        <h1 class="category-header-set"><span class="category-header-span-set"><i>Neurotransmitter Pathway: Serotonin & Dopamine</i></span></h1>
+                        <p style="line-height:1.8;font-size:16px;text-align: justify;">
+                            Dopamine and serotonin are both neurotransmitters. They are chemicals that are released from the nerve
+                            cells and serve to transfer impulses from nerve cells to other body tissues like other nerve cells, muscles,
+                            and organs. These chemicals are very important in sensory perceptions and motoric action-reaction
+                            mechanisms.<br><br>Dopamine plays an important role in controlling motor behavior, the emotional reward, and behavior
+                            motivation mechanisms. It regulates emotional responses, hormone secretion, and motoric actions related
+                            to reward sensations.<br><br>Serotonin regulates the functioning of the cardiovascular and endocrine systems and has an important
+                            role in regulating appetite, sleep, memory, mood, body temperature, and muscle contraction.
+                            Genetic variants can influence transporter function by various mechanisms, including substrate affinities,
+                            transport velocity, transporter expression levels (density), extracellular membrane expression, trafficking
+                            and turnover, and neurotransmitter release.
+                        </p>
+                    </div>
+                </div>
+                <div class="page-break"></div>
+
+            {% elif geneReport.category == "Trans-sulfuration" %}
+                <div class="page-break"></div>
+                <div class="whole-page"><br><br>
+                    <div class = "sub-part-1 borders " >
+                        <h1 class="category-header-set"><span class="category-header-span-set"><i>Trans-sulfuration pathway</i></span></h1>
+                        <p style="line-height:1.8;font-size:16px;text-align: justify;">
+                            The trans-sulfuration pathway is a metabolic pathway where transfer of sulfur from homocysteine to
+                            cysteine occurs. The pathway leads to the generation of several sulfur metabolites, which include cysteine,
+                            GSH and the gaseous signaling molecule hydrogen sulfide (H 2 S). Precise control of this pathway is critical
+                            for maintenance of optimal cellular function and, therefore, the key enzymes of the pathway, cystathionine
+                            β-synthase and cystathionine γ-lyase, are regulated at multiple levels. Disruption of the trans-sulfuration
+                            pathway contributes to the pathology of several conditions such as vascular dysfunction, Huntington's
+                            disease.
+                        </p>
+                    </div>
+                </div>
+                <div class="page-break"></div>
+
+            {% else %}
+                <div></div>
+            {% endif %}
+        </div>
+
+        <table repeat="1" class="mt-3">
+
+            <thead >
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th style="text-align:right;" colspan="3" >
+                        <p> <span style="border:1px;background-color:#4F81BD;padding: 10px;color:white; ">{{ geneReport.category }}</span></p>
+                    </th>
+                </tr>
+                <tr class="grid-header" style="border: 1px solid black;">
+                    <th style="border: 1px solid black;">SNP RSID</th>
+                    <th style="border: 1px solid black;">GENE & VARIANT</th>
+                    <th style="border: 1px solid black;">PATHWAY</th>
+                    <th style="border: 1px solid black;">VARIANT MEANING</th>
+                    <th style="border: 1px solid black;">RISK ALLELE</th>
+                    <th style="border: 1px solid black;">GENOTYPE</th>
+                </tr>
+            </thead>
+
+            <tbody >
+                {% for gene in geneReport.value %}
+                <tr style="border: 1px solid black;">
+                    <td class="snp-rsid" style="border: 1px solid black;font-weight: bold;"><p style="padding:3px;"> {{ gene.snpRsid }} </p></td>
+                    <td style="border: 1px solid black;"> {{ gene.geneAndVarient }} </td>
+                    <td class="path" style="border: 1px solid black;font-weight: bold;"> {{ gene.pathway }} </td>
+                    <td style="border: 1px solid black;"> {{ gene.variantMeaning }} </td>
+                    <td class="risk-allele" style="border: 1px solid black;font-weight: bold;"> {{ gene.riskAllele }} </td>
+                    {% if gene.genoType == "--" %}
+                        <td style="background-color:green;font-weight: bold;"> {{ gene.genoType }} </td>
+                    {% elif gene.genoType == gene.riskAllele %}
+                        <td style="background-color:red;font-weight: bold;"> {{ gene.genoType }} </td>
+                    {% elif gene.genoType[0] != gene.riskAllele[0] and gene.genoType[1] != gene.riskAllele[1] %}
+                        <td style="background-color:green;font-weight: bold;"> {{ gene.genoType }} </td>
+                    {% elif gene.genoType[0] == gene.riskAllele[0] or gene.genoType[1] == gene.riskAllele[1] %}
+                        <td style="background-color:yellow;font-weight: bold;"> {{ gene.genoType }} </td>
+                    {% else %}
+                        <td style="background-color:blue;font-weight: bold;"> {{ gene.genoType }} </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="page-break"></div>
+
+    {% endfor %}
+    <div>
+        <br><br>
+        <h1>2019 AGENESinfo Omics</h1>
+        <p style="line-height:1.8;font-size:16px;text-align: justify;">
+            This report is intended to translate your results into an easier to understand form. It is not intended to diagnose or treat. For diagnosis or treatment, please present this to your doctor
+            Additionally, genetic mutations are flags that something could be wrong and not a guarantee that you are having all or any of the associated issues. Other factors like environment, ethnic
+            background, diet, age, personal history, etc all have a factor in whether a mutation starts to present itself or not and when. Copyright 2019 AGENESinfo Omics Pvt.Ltd.
+        </p>
+    </div>
+
+</body>
+</html>

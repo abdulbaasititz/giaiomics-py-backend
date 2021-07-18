@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+            @page {
+                size: a4 portrait;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            th, td {
+                text-align: center;
+                padding: 4px;
+                font-weight: bold;
+                vertical-align: center;
+            }
+
+            th {
+                background-color: orange;
+                color: white;
+            }
+
+            td.snp-rsid {
+                background-color: rgb(253, 206, 119);
+                font-weight: bold;
+            }
+
+            td.path {
+                background-color: rgb(255, 236, 199);
+                font-weight: bold;
+            }
+
+            td.risk-allele {
+                background-color: rgb(255, 236, 199);
+                font-weight: bold;
+            }
+
+            th, td {
+                border: 1px solid black;
+            }
+            
+            table {
+                border-collapse: collapse;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+
+            .report-heading {
+                font-size: 50px;
+                padding: 10px;
+                color: white;
+                background-color: green;
+                font-weight: bold;
+                margin: auto;
+            }
+
+            .container { 
+                height: 200px;
+                position: relative;
+            }
+
+
+            caption { display: table-caption-group; }
+
+            .report-category-head {
+                border: none;
+                margin-bottom: 20px;
+                width: 100%;
+                float: right;
+            }
+
+            .vertical-center {
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+
+            .mt-2 {
+                margin-top: 20px;
+            }
+    
+    </style>
+</head>
+<body>
+    <p>GIAiomics</p>
+    {% for geneReport in reportingData %}
+
+    <p>{{ geneReport.category }}</p>
+
+    {% endfor %}
+</body>
+</html>

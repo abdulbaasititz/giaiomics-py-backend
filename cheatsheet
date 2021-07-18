@@ -1,0 +1,31 @@
+Prerequisite: 
+
+1. Installed python 3.X.X
+
+2. Installed Virtual Environment
+    > pip install virtualenv
+
+Step 1: Create a Virtual Environment
+        Syntax: virtualenv --distribute nameodenvironment --python=python_version    
+        Example: virtualenv --distribute env --python=python
+Step 2: Activate the Created virtual Environment
+        source env/bin/activate
+
+Step 2: Install Django
+        pip install Django
+
+Step 3: Create Django Project
+        django-admin startproject web_project .
+
+Step 4: Testing Django
+        python manage.py runserver
+        or
+        python manage.py runserver 8001
+
+Step 5: To create Django app
+        python manage.py startapp app
+
+Step 6: Swagger Install
+        Ref: https://django-rest-swagger.readthedocs.io/en/latest/
+        Error Resolve: Put the below line in settings.py 
+        REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' }

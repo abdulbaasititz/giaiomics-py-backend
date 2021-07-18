@@ -1,0 +1,11 @@
+pip install django
+pip install djangorestframework
+pip install django-cors-headers
+pip install mysql-connector-python
+pip install pdfkit
+pip install numpy
+pip install pandas
+pip install Jinja2
+
+pip install django djangorestframework django-cors-headers mysql-connector-python pdfkit numpy pandas Jinja2 dask
+pip install dask[dataframe] --upgrade
