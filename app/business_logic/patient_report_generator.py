@@ -16,18 +16,16 @@ class PdfReportGenerator:
         print('Constructor: PdfReportGenerator')
 
     def convertHtmlToPdf2(self, geneticModifiedReportData, reportMetaData):
-        print("cp5")
+        print("convertHtmlToPdf2")
         pdfTemplateDir = os.getcwd() + '/app/business_logic/templates'
         genecticReportType = reportMetaData['geneticReportType']
         geneticFileCompanyType = reportMetaData['geneticFileCompanyType']
         geneticReportReferenceNumber = reportMetaData['referenceNumber']
-        print("cp6")
         self.saveProcessedHeader(genecticReportType, geneticFileCompanyType, geneticReportReferenceNumber)
 
         template = ''
-        print("cp7")
         if geneticFileCompanyType == "23AndMe" and genecticReportType == "NGX":
-            print("cp8")
+            print("Set template for Ngx23AndMeTemplate")
             template = open(pdfTemplateDir + "/Ngx23AndMeTemplate.html")
 
         if geneticFileCompanyType == "23AndMe" and genecticReportType == "PGX":

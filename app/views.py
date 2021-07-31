@@ -19,30 +19,34 @@ def home(request):
 @parser_classes((MultiPartParser, ))
 @api_view(['POST'])
 def processGeneticFile(request):
-    print("cp1")
+    print("Got call From Client to process genetic files")
     geneticFile = request.FILES['geneticFile']
     requestBody = request.data
     geneticFileCompanyType = requestBody['geneticFileCompanyType']#"23AndMe" #  "Ancestry"
     geneticReportType = requestBody['geneticReportType'] # NGX and PGX
-    print("cp2")
     fs = FileSystemStorage()
     geneticFileDestination = 'genetic_data_files'
     if geneticFileCompanyType == "23AndMe" :
+        print("23AndMe")
         geneticFileDestination = 'genetic_data_files/23_and_me'
     elif geneticFileCompanyType == "Ancestry" :
+        print("Ancestry")
         geneticFileDestination = 'genetic_data_files/ancestry'
     else :
+        print("Param passing issues choose either 23AndMe or Ancestry")
         geneticFileDestination = 'genetic_data_files'
     savedGenecticFileName = fs.save(geneticFileDestination + geneticFile.name, geneticFile)
     genecticFilePath=fs.path(savedGenecticFileName)
     geneDataAnalyzer = GeneticDataAnalyzer()
     geneDataAnalyzer.initMySqlDb()
-    print("cp3")
+
     #genecticFilePath = fs.path(filename)
     if geneticFileCompanyType == "23AndMe" :
         if geneticReportType == "NGX" :
+            print("NGX")
             geneReportData = geneDataAnalyzer.getNgx23AndMeReportData(genecticFilePath)
         elif geneticReportType == "PGX" :
+            print("PGX")
             geneReportData = geneDataAnalyzer.getPgx23AndMeReportData(genecticFilePath)
         else :
             print("Add New Type")
@@ -77,45 +81,51 @@ def generateReport(request):
 @parser_classes((MultiPartParser, ))
 @api_view(['POST'])
 def processGeneticFileReport(request):
-    print("cp1")
+    print("processGeneticFileReport")
     geneticFile = request.FILES['geneticFile']
     requestBody = request.data
     geneticFileCompanyType = requestBody['geneticFileCompanyType']#"23AndMe" #  "Ancestry"
     geneticReportType = requestBody['geneticReportType'] # NGX and PGX
     referenceNumber = requestBody['referenceNumber'] # patient number
-    print("cp2")
+
     fs = FileSystemStorage()
     geneticFileDestination = 'genetic_data_files'
     if geneticFileCompanyType == "23AndMe" :
+        print("Given data is 23AndMe")
         geneticFileDestination = 'genetic_data_files/23_and_me'
     elif geneticFileCompanyType == "Ancestry" :
+        print("Given data is Ancestry")
         geneticFileDestination = 'genetic_data_files/ancestry'
     else :
+        print("Please pass either 23andme or Ancestry")
         geneticFileDestination = 'genetic_data_files'
     savedGenecticFileName = fs.save(geneticFileDestination + geneticFile.name, geneticFile)
-    genecticFilePath=fs.path(savedGenecticFileName)
+    genecticFilePath = fs.path(savedGenecticFileName)
     geneDataAnalyzer = GeneticDataAnalyzer()
     geneDataAnalyzer.initMySqlDb()
-    print("cp3")
+    print("DB initialised Successfully")
     #genecticFilePath = fs.path(filename)
     if geneticFileCompanyType == "23AndMe" :
         if geneticReportType == "NGX" :
-            print("cp3")
+            print("Report for NGX")
             geneReportData = geneDataAnalyzer.getNgx23AndMeReportData2(genecticFilePath)
         elif geneticReportType == "PGX" :
+            print("Report for PGX")
             geneReportData = geneDataAnalyzer.getPgx23AndMeReportData(genecticFilePath)
         else :
             print("Add New Type")
     elif geneticFileCompanyType == "Ancestry" :
         if geneticReportType == "NGX":
+            print("Report for NGX")
             geneReportData = geneDataAnalyzer.getNgxAncestryReportData2(genecticFilePath)
         elif geneticReportType == "PGX":
+            print("Report for PGX")
             geneReportData = geneDataAnalyzer.getPgxAncestryReportData(genecticFilePath)
         else:
             print("Add New Type")
     else :
         geneReportData = geneDataAnalyzer.getReportData(genecticFilePath)
-    print("cp4")
+    print("geneReportData is")
     pdfReportGenerator = PdfReportGenerator()
     reportMetaData={"geneticReportType":geneticReportType,
                     "geneticFileCompanyType":geneticFileCompanyType,

@@ -29,3 +29,10 @@ Step 6: Swagger Install
         Ref: https://django-rest-swagger.readthedocs.io/en/latest/
         Error Resolve: Put the below line in settings.py 
         REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' }
+
+
+         pip install virtualenv
+  537  source env/bin/activate
+  538  virtualenv --distribute env --python=python3
+  539  source env/bin/activate
+  540  python manage.py runserver 8001
