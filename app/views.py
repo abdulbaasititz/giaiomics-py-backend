@@ -84,7 +84,7 @@ def processGeneticFileReport(request):
     print("processGeneticFileReport")
     geneticFile = request.FILES['geneticFile']
     requestBody = request.data
-    geneticFileCompanyType = requestBody['geneticFileCompanyType']#"23AndMe" #  "Ancestry"
+    geneticFileCompanyType = requestBody['geneticFileCompanyType'] #"23AndMe" "Ancestry"
     geneticReportType = requestBody['geneticReportType'] # NGX and PGX
     referenceNumber = requestBody['referenceNumber'] # patient number
 
