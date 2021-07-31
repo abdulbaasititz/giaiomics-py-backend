@@ -47,14 +47,9 @@ class PdfReportGenerator:
             'enable-local-file-access': None,
             'javascript-delay': 2000000
         }
-        options = {'enable-local-file-access': None}
-        pdf = pdfkit.from_string(reportBodyHtml, 'filename.pdf', options=options)
-        #pdf = pdfkit.from_string(reportBodyHtml, {'--header-html': pdfTemplateDir + '/processed-header.html',
-         #                                                '--footer-html': pdfTemplateDir + '/footer.html'},options=wkhtmltopdf_options)
+        pdf = pdfkit.from_string(reportBodyHtml, False, {'--header-html': pdfTemplateDir + '/processed-header.html',
+                                                         '--footer-html': pdfTemplateDir + '/footer.html','enable-local-file-access':None})
 
-        # pdfkit.from_file('path/to/your/file.html', 'out.pdf', {
-        #     '--header-html': 'path/to/header.html'
-        # })
         return pdf
 
     def convertHtmlToPdf(self, geneticModifiedReportData, reportMetaData):
