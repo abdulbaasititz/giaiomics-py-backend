@@ -116,8 +116,13 @@ class PdfReportGenerator:
 
         reportBodyHtml = jinjaTemplater.render(reportingData = geneticData)
         print("cp7")
+        wkhtmltopdf_options = {
+            'enable-local-file-access': None,
+            'javascript-delay': 2000000
+        }
         pdf = pdfkit.from_string(reportBodyHtml, False, {'--header-html': pdfTemplateDir + '/processed-header.html',
-                                                         '--footer-html': pdfTemplateDir + '/footer.html'})
+                                                         '--footer-html': pdfTemplateDir + '/footer.html',
+                                                         'enable-local-file-access': None})
 
         return pdf
 

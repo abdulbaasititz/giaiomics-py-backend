@@ -78,6 +78,21 @@ def generateReport(request):
     return response
 
 @api_view(['POST'])
+def generateReport2(request):
+    pdfReportGenerator = PdfReportGenerator()
+    requestBody = request.data
+
+    editedGeneticData = requestBody['geneticEditedReportData']
+    print(editedGeneticData)
+    reportMetaData = requestBody['reportMetaData']
+    print(reportMetaData)
+    pdfReport = pdfReportGenerator.convertHtmlToPdf2(editedGeneticData, reportMetaData)
+    print("cp3")
+    response = HttpResponse(pdfReport,content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    return response
+
+@api_view(['POST'])
 def generateReport3(request):
     pdfReportGenerator = PdfReportGenerator()
     requestBody = request.data
