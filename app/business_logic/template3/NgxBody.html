@@ -1,0 +1,150 @@
+<html>
+  <head>
+    <style type="text/css">
+      /* invoice styles here*/
+      @font-face {
+      font-family: 'inter';
+      font-style: normal;
+      font-weight: normal;
+      src: url(https://fonts.googleapis.com/css2?family=Inter&display=swap);
+      }
+      @font-face {
+      font-family: 'poppins';
+      font-style: normal;
+      font-weight: normal;
+      src: url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,600&display=swap);
+      }
+      body{background:#fff;font-family: 'inter';}
+      table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      }
+      td, th {
+      <!--  border: 1px solid #dddddd;-->
+      text-align: left;
+      padding: 8px;
+      }
+      tr:nth-child(even) {
+      background-color: #dddddd;
+      }
+      th{ background-color: #2C7AFF; color:#fff;}
+      body{background: #efefef}
+      .text-center{text-align:center}
+      .p-10{padding:10px;}
+      .pt-10{padding-top:10px;}
+      .mt-10{margin-top:10px;}
+      .pb-10{padding-bottom:10px;}
+      .p-20{padding:20px}
+      .f-blue{color:#2C7AFF;}
+      .f-bold{font-weight:bold}
+      .p-5{padding:5px;}
+      .logo{height:80px; width:200px;}
+      .d-flex{  display: -webkit-box;
+      display: flex;
+      -webkit-box-pack: center;}
+      .j-center{justify-content:center}
+      .a-center{align-items:center}
+      .col-1,.col-2{width:50%}
+      footer{position:fixed; bottom:0;width:100%;height:50px;}
+      .mtb-10{margin:20px 0}
+      .text-upper{text-transform:uppercase}
+      .img-fluid {
+      max-width: 100%;
+      height: auto;
+      }
+      .img-responsive {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      }
+      .blue{ border-top:2px solid #2A70AB;}
+      h1{color:#2A70AB; font-family: 'poppins';}
+      .bg-gray{background:#525252;color:#fff;}
+      .justify,p{ text-align: justify;}
+    </style>
+<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  </head>
+  <body style="background-color:#fff;">
+    <div class="d-flex j-center a-center">
+      <div style="width:70%;">
+        <h1 class="f-bold text-upper" style="padding-top:20px;padding-bottom:10px;">MITOCHONDRIAL FUNCTION</h1>
+      </div>
+      <div style="width:30%;">
+<!--        <img src="http://207.180.233.17:9070/assets/img/logo-dark.png" alt="" class="logo mt-10 img-fluid">-->
+      </div>
+    </div>
+    <hr class="blue">
+    <div class="d-flex" >
+      <div class="p-10" style="width:45%">
+        <h3 class="f-blue text-upper" >MITOCHONDRIAL GENETICS</h3>
+        <p class="justify">Analyzes various genes related to mitochondrial function. It is believed that mitochondrial genetics evolved differently than nuclear genetics. The mitochondria are the "energy-burning furnaces" in our cells. Our Mitochondria generate biological energy (ATP) from nutrients and use critical antioxidants to protect from excess free radicals and toxicity.</p>
+        <div>
+          <h3 class="f-blue pb-10 text-upper">NDUFS3 (NADH DEHYDROGENASE)</h3>
+          <p>Involved in the electron transport chain. NADH transferring of electrons to CoQ10.</p>
+        </div>
+      </div>
+      <div style="width:5%;"></div>
+      <div class="p-10" style="width:45%;background-color:#F1F1F1;">
+        <div class="text-upper bg-gray text-center p-10 f-bold" style="width:95.6%;margin:5px 0;">Your Result <i class='bx bx-receipt' style="padding-left:10px;"></i></div>
+        <table>
+          <tr>
+            <th>Snp Id</th>
+            <th>Snp Name</th>
+            <th>Category</th>
+            <th>Risk Allele</th>
+          </tr>
+          {{reportingData}}
+           {% for gene in reportingData %}
+          <tr>
+            <td>{{gene.snpRsid}}</td>
+            <td>{{gene.snpName}}</td>
+            <td>{{gene.category}}</td>
+            <td>{{gene.riskAllele}}</td>
+             <td>{{gene.yourAllele}}</td>
+          </tr>
+          {% endfor %}
+
+        </table>
+      </div>
+    </div>
+    <div class="d-flex mtb-10">
+      <div class="" style="width:45%">
+        <div>
+          <h3 class="f-blue pb-10 text-upper">NDUFS7 (NADH DEHYDROGENASE)</h3>
+          <p>Involved in the mitochondrial electron transport chain. Involved in the transference of electrons from NADH to CoQ10.</p>
+        </div>
+        <div>
+          <h3 class="f-blue pb-10 text-upper">NDUFS8 (NADH DEHYDROGENASE)</h3>
+          <p>Involved in the electron transport chain. NADH transferring of electrons to CoQ10.</p>
+        </div>
+        <div>
+          <h3 class="f-blue pb-10 text-upper">UQCRC2 (UBIQUINOL CYTOCHROME C REDUCTASE CORE)</h3>
+          <p>CoQ10 cytochrome C assembly system in the respiratory chain of the mitochondria.</p>
+        </div>
+        <div>
+          <h3 class="f-blue pb-10 text-upper">NOS2 (NITRIC OXIDE SYNTHASE 2)</h3>
+          <p>Forms nitric oxide from L-arginine and L- citrulline. NADH, avin an biopterin (BH4), methylfolate are co-factors. NOS2 is the "inducible form" of the enzyme.</p>
+        </div>
+      </div>
+      <div style="width:5%;"></div>
+      <div class="" style="width:45%">
+<!--        <img src="https://via.placeholder.com/450" alt="" class="img-fluid" >-->
+      </div>
+    </div>
+    <div>
+
+    </div>
+    <footer>
+      <hr>
+      <div class="d-flex">
+        <div  style="width:80%;">
+          <p>Powered by <span class="f-bold">AGENESinfo</span></p>
+        </div>
+        <div style="width:20%;">
+          <p>Page 1 of 40</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

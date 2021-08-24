@@ -35,4 +35,4 @@ Step 6: Swagger Install
   537  source env/bin/activate
   538  virtualenv --distribute env --python=python3
   539  source env/bin/activate
-  540  python manage.py runserver 8075
+  540  python3 manage.py runserver 8075

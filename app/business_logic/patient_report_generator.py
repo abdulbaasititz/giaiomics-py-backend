@@ -15,6 +15,34 @@ class PdfReportGenerator:
     def __init__(self):
         print('Constructor: PdfReportGenerator')
 
+    def convertHtmlToPdf3(self, geneticModifiedReportData, reportMetaData):
+        print("convertHtmlToPdf3")
+        pdfTemplateDir = os.getcwd() + '/app/business_logic/template3'
+        genecticReportType = reportMetaData['geneticReportType']
+        geneticFileCompanyType = reportMetaData['geneticFileCompanyType']
+        geneticReportReferenceNumber = reportMetaData['referenceNumber']
+        self.saveProcessedHeader3(genecticReportType, geneticFileCompanyType, geneticReportReferenceNumber)
+
+        template = ''
+        if geneticFileCompanyType == "23AndMe" and genecticReportType == "NGX":
+            print("Set template for Ngx23AndMeTemplate")
+            template = open(pdfTemplateDir + "/NgxBody.html")
+
+        # geneticData = json.loads(geneticModifiedReportData)
+        print("cp8")
+        jinjaTemplater = Template(template.read())
+        print("cp9")
+        reportBodyHtml = jinjaTemplater.render(reportingData = geneticModifiedReportData)
+        print("cp10")
+        wkhtmltopdf_options = {
+            'enable-local-file-access': None,
+            'javascript-delay': 2000000
+        }
+        pdf = pdfkit.from_string(reportBodyHtml, False, {'--header-html': pdfTemplateDir + '/processed-header.html',
+                                                         '--footer-html': pdfTemplateDir + '/footer.html','enable-local-file-access':None})
+
+        return pdf
+
     def convertHtmlToPdf2(self, geneticModifiedReportData, reportMetaData):
         print("convertHtmlToPdf2")
         pdfTemplateDir = os.getcwd() + '/app/business_logic/templates'
@@ -136,3 +164,12 @@ class PdfReportGenerator:
                     line = line.replace('reportReferenceNumber', reportReferenceNumber)
                     fout.write(line)
 
+    def saveProcessedHeader3(self, reportType, companyType, reportReferenceNumber):
+        pdfTemplateDir = os.getcwd() + '/app/business_logic/template3'
+        with open(pdfTemplateDir + "/header.html", "rt") as fin:
+            with open(pdfTemplateDir + "/processed-header.html", "wt") as fout:
+                for line in fin:
+                    line = line.replace('companyType', companyType)
+                    line = line.replace('reportType', reportType)
+                    line = line.replace('reportReferenceNumber', reportReferenceNumber)
+                    fout.write(line)

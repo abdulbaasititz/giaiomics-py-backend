@@ -25,7 +25,7 @@ SECRET_KEY = '4ar5pemfz$p3jli(9n_#s0ysz^4&!^n(3r-@^y+4**u2h_kcvu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["13.234.110.235", "rtps.io", 'localhost', '0.0.0.0', '127.0.0.1','207.180.233.17']
+ALLOWED_HOSTS = ["13.234.110.235", "rtps.io", 'localhost', '0.0.0.0', '127.0.0.1','207.180.233.17','192.168.18.7']
 
 
 # Application definition

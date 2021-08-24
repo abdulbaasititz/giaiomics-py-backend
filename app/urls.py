@@ -10,5 +10,6 @@ urlpatterns = [
     path('processGeneticFile', views.processGeneticFile, name='processGeneticFile'),
     path('generateGeneticReport', views.generateReport, name='generateGeneticReport'),
     path('processGeneticFileReport', views.processGeneticFileReport, name='processGeneticFileReport'),
+    path('generateReport', views.generateReport, name='generateReport'),
     url(r'^$', schema_view)
 ]
